@@ -1,0 +1,83 @@
+{
+  "name": "enterprise-invest",
+  "version": "1.0.0",
+  "description": "Enterprise Grade Desktop Application with 20 Layers of Security",
+  "main": "core/desktop/electron/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "electron .",
+    "start:vps": "node core/server/server.js",
+    "prod:vps": "pm2 start core/server/server.js --name enterprise-api",
+    "db:migrate": "node core/server/database/migrate.js",
+    "db:migrate:verify": "node core/server/database/migrate.js --verify",
+    "test:security": "node --test tests/security/*.test.js",
+    "build:linux": "electron-builder --linux",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "googleapis": "^185.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "electron": "^43.2.0",
+    "electron-builder": "^26.15.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "private": true,
+  "overrides": {
+    "qs": "6.16.0"
+  },
+  "build": {
+    "appId": "com.enterprise.invest",
+    "productName": "Enterprise Invest",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "core/desktop/electron/**/*",
+      "core/desktop/frontend/**/*",
+      "core/shared/**/*",
+      "core/desktop/.env",
+      "package.json",
+      "!core/desktop/electron/services/client_secret.json"
+    ],
+    "extraResources": [
+      {
+        "from": "core/desktop/electron/services/client_secret.json",
+        "to": "discovery/client_secret.json"
+      }
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility",
+      "maintainer": "Enterprise Invest <dev@enterprise-invest.local>",
+      "syncDesktopName": true
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    }
+  },
+  "author": {
+    "name": "Enterprise Invest",
+    "email": "dev@enterprise-invest.local"
+  },
+  "homepage": "https://enterprise-invest.local",
+  "desktopName": "enterprise-invest"
+}

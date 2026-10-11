@@ -1,0 +1,561 @@
+/* ================================================================
+   ENTERPRISE INVEST SYSTEM
+   MAIN APPLICATION CSS
+   ================================================================ */
+
+:root {
+    --enterprise-bg: #070c10;
+    --enterprise-bg-soft: #0b1216;
+    --enterprise-surface: #0d171b;
+    --enterprise-surface-2: #101c20;
+    --enterprise-surface-3: #142226;
+
+    --enterprise-border: rgba(132, 187, 176, 0.14);
+    --enterprise-border-strong: rgba(132, 187, 176, 0.24);
+
+    --enterprise-text: #e8f2ef;
+    --enterprise-text-soft: #9aa9a7;
+    --enterprise-text-muted: #647572;
+
+    --enterprise-green: #73e6a6;
+    --enterprise-green-2: #47d6a0;
+    --enterprise-cyan: #45d8d1;
+
+    --enterprise-danger: #ff6f91;
+    --enterprise-warning: #f5c96a;
+
+    --enterprise-sidebar-width: 286px;
+    --enterprise-sidebar-collapsed-width: 82px;
+    --enterprise-header-height: 76px;
+
+    --enterprise-radius-sm: 8px;
+    --enterprise-radius-md: 14px;
+    --enterprise-radius-lg: 18px;
+
+    --enterprise-shadow:
+        0 18px 55px rgba(0, 0, 0, 0.28);
+
+    --enterprise-transition:
+        220ms cubic-bezier(.2, .8, .2, 1);
+}
+
+
+/* ================================================================
+   RESET
+   ================================================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+html {
+    color-scheme: dark;
+}
+
+
+body {
+    min-width: 320px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(69, 216, 209, 0.055),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 15% 90%,
+            rgba(115, 230, 166, 0.035),
+            transparent 30%
+        ),
+        var(--enterprise-bg);
+
+    color: var(--enterprise-text);
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* ================================================================
+   APPLICATION
+   ================================================================ */
+
+.enterprise-app {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.012),
+            transparent 50%
+        );
+}
+
+
+/* ================================================================
+   SIDEBAR ROOT
+   ================================================================ */
+
+.sidebar-root {
+    width: var(--enterprise-sidebar-width);
+    height: 100%;
+
+    flex: 0 0 var(--enterprise-sidebar-width);
+
+    transition:
+        width var(--enterprise-transition),
+        flex-basis var(--enterprise-transition);
+
+    position: relative;
+
+    z-index: 20;
+}
+
+
+.enterprise-app.sidebar-collapsed .sidebar-root {
+    width: var(--enterprise-sidebar-collapsed-width);
+    flex-basis: var(--enterprise-sidebar-collapsed-width);
+}
+
+
+/* ================================================================
+   MAIN WRAPPER
+   ================================================================ */
+
+.main-wrapper {
+    min-width: 0;
+    min-height: 0;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(12, 21, 25, 0.92),
+            rgba(7, 12, 16, 0.98)
+        );
+}
+
+
+/* ================================================================
+   HEADER ROOT
+   ================================================================ */
+
+.header-root {
+    height: var(--enterprise-header-height);
+    flex: 0 0 var(--enterprise-header-height);
+
+    position: relative;
+    z-index: 15;
+}
+
+
+/* ================================================================
+   MAIN STAGE
+   ================================================================ */
+
+.panggung {
+    min-width: 0;
+    min-height: 0;
+
+    flex: 1;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    position: relative;
+
+    padding: 30px;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(115, 230, 166, 0.24)
+        transparent;
+
+    background:
+        radial-gradient(
+            circle at 75% 0%,
+            rgba(69, 216, 209, 0.035),
+            transparent 35%
+        ),
+        var(--enterprise-bg);
+}
+
+
+.panggung::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+.panggung::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.panggung::-webkit-scrollbar-thumb {
+    background: rgba(115, 230, 166, 0.18);
+    border-radius: 999px;
+}
+
+
+.panggung::-webkit-scrollbar-thumb:hover {
+    background: rgba(115, 230, 166, 0.30);
+}
+
+
+/* ================================================================
+   INITIAL LOADING
+   ================================================================ */
+
+.workspace-loading {
+    width: 100%;
+    min-height: 100%;
+
+    display: grid;
+    place-items: center;
+}
+
+
+.workspace-loader {
+    min-width: 310px;
+
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    padding: 20px 24px;
+
+    border:
+        1px solid
+        rgba(115, 230, 166, 0.15);
+
+    border-radius: var(--enterprise-radius-md);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 34, 38, 0.88),
+            rgba(12, 22, 25, 0.94)
+        );
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+
+.workspace-loader-ring {
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    border-radius: 50%;
+
+    border:
+        2px solid
+        rgba(115, 230, 166, 0.12);
+
+    border-top-color: var(--enterprise-green);
+    border-right-color: var(--enterprise-cyan);
+
+    animation:
+        enterprise-spin 850ms linear infinite;
+}
+
+
+.workspace-loader-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.workspace-loader-copy strong {
+    color: var(--enterprise-green);
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+
+.workspace-loader-copy span {
+    color: var(--enterprise-text-muted);
+
+    font-size: 12px;
+}
+
+
+/* ================================================================
+   COMMON PAGE SAFETY
+   ================================================================ */
+
+#panggung-konten > * {
+    max-width: 100%;
+}
+
+
+#panggung-konten button,
+#panggung-konten a {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+/* ================================================================
+   ANIMATION
+   ================================================================ */
+
+@keyframes enterprise-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 900px) {
+
+    :root {
+        --enterprise-sidebar-width: 250px;
+    }
+
+    .panggung {
+        padding: 22px;
+    }
+
+}
+
+
+@media (max-width: 680px) {
+
+    :root {
+        --enterprise-sidebar-width: 250px;
+        --enterprise-sidebar-collapsed-width: 0px;
+    }
+
+    .sidebar-root {
+        position: absolute;
+        inset: 0 auto 0 0;
+
+        z-index: 100;
+    }
+
+    .enterprise-app.sidebar-collapsed .sidebar-root {
+        width: 0;
+        flex-basis: 0;
+    }
+
+    .panggung {
+        padding: 16px;
+    }
+
+}
+/* =========================================================
+   SETTINGS SUB PAGES
+   ========================================================= */
+
+.settings-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+.settings-page-header {
+  margin-bottom: 24px;
+}
+
+.settings-page-header h2 {
+  margin: 0 0 8px;
+}
+
+.settings-page-header p {
+  margin: 0;
+  opacity: 0.7;
+}
+
+.settings-card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 22px;
+  border-radius: 12px;
+  background: rgba(30, 30, 46, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-card-title {
+  margin-bottom: 18px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.settings-role-list {
+  display: grid;
+  gap: 12px;
+}
+
+.settings-role-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.settings-role-item span {
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+.settings-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.settings-option span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-option small {
+  opacity: 0.65;
+}
+
+.settings-status {
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ================================================================
+   WORKSPACE THEME
+   ================================================================ */
+
+html[data-workspace-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-workspace-theme="light"] {
+  color-scheme: light;
+
+  --enterprise-bg: #f4f8f7;
+  --enterprise-bg-soft: #edf3f1;
+  --enterprise-surface: #ffffff;
+  --enterprise-surface-2: #f7faf9;
+  --enterprise-surface-3: #eaf1ef;
+
+  --enterprise-border: rgba(38, 72, 65, 0.14);
+  --enterprise-border-strong: rgba(38, 72, 65, 0.24);
+
+  --enterprise-text: #17231f;
+  --enterprise-text-soft: #53645f;
+  --enterprise-text-muted: #75847f;
+
+  --enterprise-green: #168653;
+  --enterprise-green-2: #159875;
+  --enterprise-cyan: #087f7a;
+
+  --enterprise-danger: #d94a6a;
+  --enterprise-warning: #9b7115;
+
+  --enterprise-shadow:
+    0 18px 55px rgba(38, 72, 65, 0.12);
+}
+
+html[data-workspace-theme="light"] body {
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(8, 127, 122, 0.06),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 15% 90%,
+      rgba(22, 134, 83, 0.045),
+      transparent 30%
+    ),
+    var(--enterprise-bg);
+
+  color: var(--enterprise-text);
+}
+
+html[data-workspace-theme="light"] .enterprise-app {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.7),
+      transparent 50%
+    );
+}

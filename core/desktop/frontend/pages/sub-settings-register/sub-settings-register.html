@@ -1,0 +1,87 @@
+<section class="settings-page">
+  <div class="settings-page-header">
+    <h2>Registrasi Akun Karyawan Baru</h2>
+    <p>
+      Buat akun baru dengan role yang sesuai kewenangan sistem.
+    </p>
+  </div>
+
+  <div class="settings-card" style="max-width: 520px;">
+    <div class="settings-card-title">Data Akun Baru</div>
+
+    <div style="margin-bottom: 16px;">
+      <label
+        for="select-register-role"
+        style="display:block; margin-bottom:8px; font-weight:600;"
+      >
+        ROLE AKUN
+      </label>
+
+      <select
+        id="select-register-role"
+        style="width:100%; box-sizing:border-box;"
+      >
+        <option value="user">USER (Karyawan Standar)</option>
+        <option value="adminmaster">ADMIN MASTER (Pengatur Sistem)</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label
+        for="input-register-pass"
+        style="display:block; margin-bottom:8px; font-weight:600;"
+      >
+        PASSWORD SEMENTARA
+      </label>
+
+      <input
+        type="password"
+        id="input-register-pass"
+        autocomplete="new-password"
+        minlength="12"
+        maxlength="128"
+        placeholder="Minimal 12 karakter..."
+        style="width:100%; box-sizing:border-box;"
+      >
+    </div>
+
+    <button
+      id="btn-submit-register"
+      type="button"
+      style="width:100%;"
+    >
+      GENERASI AKUN BARU
+    </button>
+
+    <div
+      id="register-status"
+      class="settings-status"
+      aria-live="polite"
+      style="margin-top:16px;"
+    ></div>
+
+    <div
+      id="box-hasil-cetak"
+      style="display:none; margin-top:20px;"
+    >
+      <div class="settings-card-title">Hasil Registrasi</div>
+
+      <div class="settings-role-list">
+        <div class="settings-role-item">
+          <strong>Username</strong>
+          <span id="res-username">-</span>
+        </div>
+
+        <div class="settings-role-item">
+          <strong>Role</strong>
+          <span id="res-role">-</span>
+        </div>
+
+        <div class="settings-role-item">
+          <strong>Password Sementara</strong>
+          <span id="res-password">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

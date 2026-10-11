@@ -1,0 +1,50 @@
+<section class="settings-page">
+  <div class="settings-page-header">
+    <h2>Hash Keamanan</h2>
+    <p>
+      Informasi mengenai perlindungan kredensial pengguna.
+    </p>
+  </div>
+
+  <div class="settings-card">
+    <div class="settings-card-title">
+      Perlindungan Kredensial
+    </div>
+
+    <div class="settings-role-list">
+      <div class="settings-role-item">
+        <strong>Password</strong>
+        <span>
+          Sistem menyimpan kredensial dalam bentuk hash,
+          bukan teks kata sandi asli.
+        </span>
+      </div>
+
+      <div class="settings-role-item">
+        <strong>Password Hash</strong>
+        <span>
+          Nilai hash tidak ditampilkan pada antarmuka aplikasi
+          untuk mencegah kebocoran data sensitif.
+        </span>
+      </div>
+
+      <div class="settings-role-item">
+        <strong>Token Sesi</strong>
+        <span>
+          Informasi token sesi juga tidak tersedia melalui
+          tampilan administratif umum.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <div
+      id="hash-security-status"
+      class="settings-status"
+      aria-live="polite"
+    >
+      Proteksi data sensitif aktif.
+    </div>
+  </div>
+</section>

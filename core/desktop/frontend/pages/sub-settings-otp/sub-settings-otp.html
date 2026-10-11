@@ -1,0 +1,49 @@
+<section class="settings-page">
+  <div class="settings-page-header">
+    <h2>Otorisasi Perangkat</h2>
+    <p>
+      Masukkan kode aktivasi untuk memberikan otorisasi pada perangkat baru.
+    </p>
+  </div>
+
+  <div class="settings-card" style="max-width: 520px;">
+    <div class="settings-card-title">Kode Aktivasi Perangkat</div>
+
+    <div style="margin-bottom: 20px;">
+      <label
+        for="input-otp-device"
+        style="display:block; margin-bottom:8px; font-weight:600;"
+      >
+        KODE AKTIVASI
+      </label>
+
+      <input
+        type="text"
+        id="input-otp-device"
+        inputmode="numeric"
+        autocomplete="one-time-code"
+        maxlength="7"
+        placeholder="123-456"
+        aria-describedby="msg-status-otp"
+        style="width:100%; box-sizing:border-box;"
+      >
+    </div>
+
+    <button
+      id="btn-submit-otp"
+      type="button"
+      style="width:100%;"
+    >
+      SETUJUI PERANGKAT BARU
+    </button>
+
+    <div
+      id="msg-status-otp"
+      class="settings-status"
+      aria-live="polite"
+      style="margin-top:16px;"
+    >
+      Status: Menunggu input.
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+<section class="settings-page">
+  <div class="settings-page-header">
+    <h2>Konfigurasi Token Otoritas & Reset Node</h2>
+    <p>
+      Area khusus Owner untuk operasi reset hardware yang bersifat destruktif.
+    </p>
+  </div>
+
+  <div class="settings-card" style="max-width: 620px;">
+    <div class="settings-card-title">
+      Konfirmasi Reset Hardware
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label
+        for="input-token-reset"
+        style="display:block; margin-bottom:8px; font-weight:600;"
+      >
+        FRASA KONFIRMASI RESET HARDWARE
+      </label>
+
+      <input
+        type="password"
+        id="input-token-reset"
+        autocomplete="off"
+        maxlength="256"
+        placeholder="Masukkan frasa konfirmasi..."
+        style="width:100%; box-sizing:border-box;"
+      >
+    </div>
+
+    <div class="settings-status" aria-live="polite">
+      <span id="msg-status-token">
+        Status: Siap siaga.
+      </span>
+    </div>
+
+    <button
+      id="btn-trigger-reset"
+      type="button"
+      style="width:100%; margin-top:16px;"
+    >
+      HANCURKAN DATA HARDWARE
+    </button>
+  </div>
+</section>
