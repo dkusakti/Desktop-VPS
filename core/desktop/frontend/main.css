@@ -559,3 +559,14 @@ html[data-workspace-theme="light"] .enterprise-app {
       transparent 50%
     );
 }
+
+/* Registrasi akun: pengganti style inline agar sesuai CSP */
+.register-card { max-width: 520px; }
+.register-field { margin-bottom: 16px; }
+.register-label { display: block; margin-bottom: 8px; font-weight: 600; }
+.register-control { width: 100%; box-sizing: border-box; }
+.register-password-field { margin-bottom: 20px; }
+.register-submit { width: 100%; }
+.register-status-spacing { margin-top: 16px; }
+.register-result-hidden { display: none; margin-top: 20px; }
+

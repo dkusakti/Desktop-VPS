@@ -418,3 +418,20 @@ form {
     color: #fbc531 !important; /* Kuning oranye cerah */
     text-shadow: 0 0 8px rgba(251, 197, 49, 0.4);
 }
+
+
+/* auth-status-message-csp-fix */
+.auth-status-message-csp-fix {
+  margin-top: 15px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.5;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}

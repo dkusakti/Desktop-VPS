@@ -6,30 +6,31 @@
     </p>
   </div>
 
-  <div class="settings-card" style="max-width: 520px;">
+  <div class="settings-card" class="register-card">
     <div class="settings-card-title">Data Akun Baru</div>
 
-    <div style="margin-bottom: 16px;">
+    <div class="register-field">
       <label
         for="select-register-role"
-        style="display:block; margin-bottom:8px; font-weight:600;"
+        class="register-label"
       >
         ROLE AKUN
       </label>
 
       <select
         id="select-register-role"
-        style="width:100%; box-sizing:border-box;"
+        class="register-control"
       >
         <option value="user">USER (Karyawan Standar)</option>
         <option value="adminmaster">ADMIN MASTER (Pengatur Sistem)</option>
+      <option value="owner">OWNER (Pemilik Sistem)</option>
       </select>
     </div>
 
-    <div style="margin-bottom: 20px;">
+    <div class="register-password-field">
       <label
         for="input-register-pass"
-        style="display:block; margin-bottom:8px; font-weight:600;"
+        class="register-label"
       >
         PASSWORD SEMENTARA
       </label>
@@ -38,17 +39,17 @@
         type="password"
         id="input-register-pass"
         autocomplete="new-password"
-        minlength="12"
-        maxlength="128"
-        placeholder="Minimal 12 karakter..."
-        style="width:100%; box-sizing:border-box;"
+        minlength="6"
+        maxlength="88"
+        placeholder="Minimal 6 karakter..."
+        class="register-control"
       >
     </div>
 
     <button
       id="btn-submit-register"
       type="button"
-      style="width:100%;"
+      class="register-submit"
     >
       GENERASI AKUN BARU
     </button>
@@ -57,12 +58,12 @@
       id="register-status"
       class="settings-status"
       aria-live="polite"
-      style="margin-top:16px;"
+      class="register-status-spacing"
     ></div>
 
     <div
       id="box-hasil-cetak"
-      style="display:none; margin-top:20px;"
+      class="register-result-hidden"
     >
       <div class="settings-card-title">Hasil Registrasi</div>
 

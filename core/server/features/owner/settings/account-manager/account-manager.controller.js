@@ -5,6 +5,11 @@ const accountManagerController = {
     const timestamp = new Date().toISOString();
 
     try {
+    console.log("[REGISTER_USER_REQUEST_DEBUG]", {
+      bodyRole: req.body?.role,
+      bodyKeys: Object.keys(req.body || {}),
+      actorRole: req.user?.role
+    });
       const result = await accountManagerService.registerNewUser({
         actorRole: req.user?.role,
         role: req.body?.role,

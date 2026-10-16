@@ -26,7 +26,7 @@
     const roleVal = selectRole.value;
     const passVal = inputPass.value;
 
-    if (!['user', 'adminmaster'].includes(roleVal)) {
+    if (!['user', 'adminmaster', 'owner'].includes(roleVal)) {
       setStatus('Role akun tidak valid.');
       return;
     }
@@ -36,13 +36,13 @@
       return;
     }
 
-    if (passVal.length < 12) {
-      setStatus('Password sementara minimal 12 karakter.');
+    if (passVal.length < 6) {
+      setStatus('Password sementara minimal 6 karakter.');
       return;
     }
 
     if (passVal.length > 128) {
-      setStatus('Password sementara maksimal 128 karakter.');
+      setStatus('Password sementara maksimal 8 karakter.');
       return;
     }
 

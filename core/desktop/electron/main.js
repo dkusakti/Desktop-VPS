@@ -1,5 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { app, BrowserWindow, session, ipcMain } from 'electron';
-import path from 'path';
 import runDiscoveryClient from './services/discovery-client.js';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
@@ -32,38 +33,89 @@ let tokenExpirationTime = 0;
 let isRefreshingTokens = false;
 
 
+
 const runServerDiscovery = async () => {
   const clientSecretPath = app.isPackaged
-    ? path.join(process.resourcesPath, 'discovery', 'client_secret.json')
-    : path.join(__dirname, 'services', 'client_secret.json');
-
-  const tokenFile = path.join(app.getPath('userData'), 'google-token.json');
-
-  console.log('[DISCOVERY_START] JavaScript client');
-  console.log(`[DISCOVERY_ENV] log_dir=${path.join(app.getPath('userData'), 'logs')}`);
-
+  ? path.join(process.resourcesPath, 'discovery', 'client_secret.json')
+  : path.join(__dirname, 'services', 'client_secret.json');
+  
+  const bundledTokenFile = path.join(
+    process.resourcesPath,
+    'discovery',
+    'google-token.json'
+  );
+  
+  const appDataDir = path.join(
+    app.getPath('appData'),
+                               'enterprise-invest'
+  );
+  
+  const tokenFile = app.isPackaged
+  ? path.join(appDataDir, 'google-token.json')
+  : path.join(__dirname, 'services', 'google-token.json');
+  
   try {
-    const result = await runDiscoveryClient({ clientSecretPath, tokenFile });
-
+    if (app.isPackaged) {
+      fs.mkdirSync(appDataDir, { recursive: true });
+      
+      if (!fs.existsSync(bundledTokenFile)) {
+        throw new Error(
+          `Google Drive token tidak ditemukan: ${bundledTokenFile}`
+        );
+      }
+      
+      // Selalu timpa token AppData dengan token dari paket aplikasi.
+      fs.copyFileSync(bundledTokenFile, tokenFile);
+      
+      console.log('[TOKEN_PATH]', tokenFile);
+      console.log('[TOKEN_EXISTS]', fs.existsSync(tokenFile));
+    } else {
+      console.log('[TOKEN_PATH]', tokenFile);
+      console.log('[TOKEN_EXISTS]', fs.existsSync(tokenFile));
+    }
+    
+    console.log('[DISCOVERY_START] JavaScript client');
+    console.log(
+      `[DISCOVERY_ENV] log_dir=${path.join(app.getPath('userData'), 'logs')}`
+    );
+    
+    const result = await runDiscoveryClient({
+      clientSecretPath,
+      tokenFile
+    });
+    
     if (!result || result.success !== true) {
-      console.error('[DISCOVERY_FAILED]', result?.error || 'Discovery VPS gagal.');
+      console.error(
+        '[DISCOVERY_FAILED]',
+        result?.error || 'Discovery VPS gagal.'
+      );
+      
       return {
         success: false,
         error: result?.error || 'Discovery VPS gagal.'
       };
     }
-
+    
     const serverIp = String(result.server_ip || '').trim();
+    
     if (!/^(?:\d{1,3}\.){3}\d{1,3}$/.test(serverIp)) {
-      return { success: false, error: 'Discovery menghasilkan alamat IP yang tidak valid.' };
+      return {
+        success: false,
+        error: 'Discovery menghasilkan alamat IP yang tidak valid.'
+      };
     }
-
+    
     return { ...result, server_ip: serverIp };
   } catch (error) {
     console.error('[DISCOVERY_FAILED]', error.message);
-    return { success: false, error: error.message || 'Discovery VPS gagal.' };
+    
+    return {
+      success: false,
+      error: error.message || 'Discovery VPS gagal.'
+    };
   }
 };
+
 
 
 const normalizeRole = (role) => {
@@ -315,6 +367,9 @@ __dirname,
     )
   );
 
+  // DEBUG SEMENTARA: buka DevTools pada dashboard.
+//  dashboardWindow.webContents.openDevTools({ mode: 'detach' });
+
   dashboardWindow.on('closed', () => {
     dashboardWindow = null;
   });
@@ -369,10 +424,7 @@ const createWindow = async () => {
     () => ({ action: 'deny' })
   );
 
-  mainWindow.webContents.on(
-    'devtools-opened',
-    () => mainWindow.webContents.closeDevTools()
-  );
+// DEBUG SEMENTARA: penutupan otomatis DevTools dinonaktifkan.
 
   await mainWindow.loadFile(
     path.join(
@@ -383,6 +435,9 @@ const createWindow = async () => {
       'login.html'
     )
   );
+
+  // DEBUG SEMENTARA: buka DevTools saat aplikasi dimulai.
+//  mainWindow.webContents.openDevTools({ mode: 'detach' });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -521,16 +576,19 @@ const executeAuthenticatedAction = async (
   action,
   data
 ) => {
-  const capability =
-    CapabilityPolicy.assert(
-      action,
-      currentSessionRole
+  try {
+    CapabilityPolicy.assert(action, currentSessionRole);
+  } catch (error) {
+    console.error(
+      `[KERNEL_CAPABILITY_DENIED] action=${action} role=${currentSessionRole} error=${error.message}`
     );
-
-  if (!capability.allowed) {
+  
     return {
+      success: false,
       status: 'error',
-      message: capability.message
+      code: 'CAPABILITY_DENIED',
+      error: 'Akun ini tidak memiliki izin untuk menjalankan tindakan tersebut.',
+      message: 'Akun ini tidak memiliki izin untuk menjalankan tindakan tersebut.'
     };
   }
 

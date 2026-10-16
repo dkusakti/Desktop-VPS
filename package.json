@@ -41,23 +41,28 @@
       "output": "dist"
     },
     "files": [
-      "core/desktop/electron/**/*",
-      "core/desktop/frontend/**/*",
-      "core/shared/**/*",
-      "core/desktop/.env",
-      "package.json",
-      "!core/desktop/electron/services/client_secret.json"
+   
+    "core/desktop/frontend/**/*",
+    "core/shared/**/*",
+    "core/desktop/.env",
+    "package.json",
+    "!core/desktop/electron/services/client_secret.json",
+    "core/desktop/**/*"
     ],
     "extraResources": [
-      {
-        "from": "core/desktop/electron/services/client_secret.json",
-        "to": "discovery/client_secret.json"
-      }
+    {
+      "from": "core/desktop/electron/services/client_secret.json",
+      "to": "discovery/client_secret.json"
+    },
+    {
+      "from": "core/desktop/electron/services/google-token.json",
+      "to": "discovery/google-token.json"
+    }
     ],
     "linux": {
       "target": [
-        "AppImage",
-        "deb"
+      "AppImage",
+      "deb"
       ],
       "category": "Utility",
       "maintainer": "Enterprise Invest <dev@enterprise-invest.local>",
@@ -65,12 +70,21 @@
     },
     "win": {
       "target": [
-        "nsis"
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
       ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     },
     "mac": {
       "target": [
-        "dmg"
+      "dmg"
       ]
     }
   },

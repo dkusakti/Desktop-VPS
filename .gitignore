@@ -1,10 +1,15 @@
 node_modules/
+dist/
 .env
 .env.*
 !.env.example
 
 /core/desktop/electron/services/client_secret.json
 /core/server/discovery/credentials/service-account.json
-
+dist/
 *.key
 *.pem
+
+# Local credentials
+/core/desktop/electron/services/client_secret.json
+/core/desktop/electron/services/google-token.json

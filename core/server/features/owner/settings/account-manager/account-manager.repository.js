@@ -1,16 +1,26 @@
 import dbPool from '../../../../database/pool.js';
 
 const accountManagerRepository = {
-  countUsersByUsernamePrefix: async (prefix) => {
-    const result = await dbPool.query(
-      `SELECT COUNT(*)::integer AS total
-       FROM login
-       WHERE username LIKE $1`,
-      [`${prefix}%`]
-    );
+  getMaxSequenceByUsernamePrefix: async (prefix) => {
+  const result = await dbPool.query(
+    `SELECT username
+     FROM login
+     WHERE username LIKE $1`,
+    [`${prefix}%`]
+  );
 
-    return Number(result.rows[0]?.total || 0);
-  },
+  const maxSequence = result.rows.reduce((max, row) => {
+    const suffix = row.username.slice(prefix.length);
+
+    if (!/^\d+$/.test(suffix)) {
+      return max;
+    }
+
+    return Math.max(max, Number(suffix));
+  }, 0);
+
+  return maxSequence;
+},
 
   createUser: async ({
     username,

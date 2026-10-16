@@ -6,7 +6,7 @@ PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SERVER_SOURCE="$PROJECT_ROOT/core/server"
 
 VPS_USER="vps"
-VPS_HOST="192.168.122.204"
+VPS_HOST="192.168.122.196"
 VPS_ROOT="/opt/enterprise-server"
 
 echo "=== ENTERPRISE SERVER DEPLOY ==="
